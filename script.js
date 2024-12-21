@@ -99,3 +99,19 @@ function displayQuestion() {
         });
     }
 }
+
+function checkAnswer(selectedAnswer) {
+    const question = questions[currentQuestionIndex];
+    const resultContainer = document.getElementById("result-container");
+
+    if (selectedAnswer === question.correctAnswer) {
+        score++;
+        resultContainer.textContent = "Correct!";
+        resultContainer.classList.add("correct");
+    } else {
+        resultContainer.textContent = "Incorrect!";
+        resultContainer.classList.add("incorrect");
+    }
+
+    document.getElementById("next-btn").style.display = "block";  // Affiche le bouton suivant
+}
