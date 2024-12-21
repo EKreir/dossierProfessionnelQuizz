@@ -48,3 +48,30 @@ h1 {
     padding: 10px;
     margin: 10px 0;
 }
+
+.correct {
+    background-color: green;
+    color: white;
+    animation: fadeIn 0.5s;
+}
+
+.incorrect {
+    background-color: red;
+    color: white;
+    animation: fadeIn 0.5s;
+}
+
+#next-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+#next-btn:hover {
+    background-color: #45a049;
+}
