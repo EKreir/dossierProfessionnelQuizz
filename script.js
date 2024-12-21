@@ -1,3 +1,5 @@
+let currentQuestionIndex = 0;
+let score = 0;
 const questions = [
     {
         question: "Qui est le premier sensei de Naruto ?",

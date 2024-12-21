@@ -21,3 +21,30 @@ h1 {
     font-size: 24px;
     text-align: center;
 }
+
+#question-container {
+    margin-bottom: 20px;
+}
+
+.answer-btn {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.answer-btn:hover {
+    background-color: #e0e0e0;
+}
+
+#result-container {
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0;
+}
