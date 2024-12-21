@@ -184,9 +184,45 @@ function nextQuestion() {
 }
 
 function showFinalScore() {
-    document.getElementById("question-text").textContent = `Votre score final est ${score} sur ${questions.length}`;
-    document.getElementById("answer-container").innerHTML = "";
-    document.getElementById("next-btn").style.display = "none";
+    const scoreContainer = document.getElementById("question-text");
+    const answerContainer = document.getElementById("answer-container");
+    //Afficher le score final
+    scoreContainer.textContent = `Votre score final est de ${score} sur ${questions.length}`;
+    answerContainer.innerHTML = "";  // Réinitialise les réponses
+
+    // Ajouter un message personnalisé en fonction du score
+    let message = "";
+    if (score === questions.length) {
+        message = "Félicitations, tu es un vrai Hokage ! 🎉";
+    } else if (score >= questions.length * 0.7) {
+        message = "Très bien joué ! Tu es un jûnin de haut niveau ! 👊";
+    } else if (score >= questions.length * 0.4) {
+        message = "Pas mal ! Tu as encore quelques progrès à faire jeune chûnin. 💪";
+    } else {
+        message = "Il te reste encore du travail... Reviens à l'académie quand tu seras prêt ! 😅";
+    }
+    const messageElement = document.createElement("div");
+    messageElement.textContent = message;
+    messageElement.style.fontSize = "20px";
+    messageElement.style.fontWeight = "bold";
+    answerContainer.appendChild(messageElement);
+
+    // Ajouter un GIF en fonction du score
+    const gifElement = document.createElement("img");
+    if (score === questions.length) {
+        gifElement.src = "https://media.giphy.com/media/l41lYlrbG7rLZyFkg/giphy.gif"; // GIF de félicitations
+    } else if (score >= questions.length * 0.7) {
+        gifElement.src = "https://media.giphy.com/media/l3q2lRc4jT1gGHugA/giphy.gif"; // GIF de victoire
+    } else {
+        gifElement.src = "https://media.giphy.com/media/xT0xekj6qGgr5M3qDY/giphy.gif"; // GIF amusant
+    }
+    gifElement.alt = "GIF de fin";
+    gifElement.style.marginTop = "20px";
+    gifElement.style.width = "100%";
+    answerContainer.appendChild(gifElement);
+
+    // Cacher le bouton suivant
+document.getElementById("next-btn").style.display = "none";
 }
 
 shuffleQuestions();
