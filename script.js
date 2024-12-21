@@ -62,3 +62,7 @@ const questions = [
         correctAnswer: "Hashirama"
     }
 ];
+
+function shuffleQuestions() {
+    questions.sort(() => Math.random() - 0.5);  // Mélange les questions de manière aléatoire
+}
