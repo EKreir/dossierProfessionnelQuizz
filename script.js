@@ -161,6 +161,10 @@ function checkAnswers() {
     } else {
         resultContainer.textContent = "Incorrect!";
         resultContainer.classList.add("incorrect");
+        // Ajoute la réponse correcte sous le message Incorrect
+        const correctAnswerText = document.createElement("div");
+        correctAnswerText.textContent = `La bonne réponse était : ${Array.isArray(question.correctAnswer) ? question.correctAnswer.join(', ') : question.correctAnswer}`;
+        resultContainer.appendChild(correctAnswerText);
     }
 
     // Afficher le bouton suivant
