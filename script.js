@@ -115,3 +115,14 @@ function checkAnswer(selectedAnswer) {
 
     document.getElementById("next-btn").style.display = "block";  // Affiche le bouton suivant
 }
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("result-container").textContent = "";
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+    } else {
+        showFinalScore();
+    }
+}
