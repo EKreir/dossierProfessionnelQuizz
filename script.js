@@ -153,6 +153,7 @@ function checkAnswers() {
         }
     }
 
+    // Affiche le résultat
     if (isCorrect) {
         score++;
         resultContainer.textContent = "Correct!";
@@ -170,6 +171,7 @@ function nextQuestion() {
     currentQuestionIndex++;
     document.getElementById("next-btn").style.display = "none";
     document.getElementById("result-container").textContent = "";
+    document.getElementById("result-container").classList.remove("correct", "incorrect"); // Reset des styles
     if (currentQuestionIndex < questions.length) {
         displayQuestion();
     } else {
