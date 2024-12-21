@@ -18,5 +18,47 @@ const questions = [
         type: "true/false", // Vrai/Faux
         answers: ["Vrai", "Faux"],
         correctAnswer: "Vrai"
+    },
+    {
+        question: "Quel est le nom du démon renard à neuf queues qui est scellé en Naruto ?",
+        type: "single",
+        answers: ["Kurama", "Shukaku", "Matatabi", "Isobu"],
+        correctAnswer: "Kurama"
+    },
+    {
+        question: "Qui est le rival de Naruto ?",
+        type: "single",
+        answers: ["Lee", "Saï", "Shikamaru", "Sasuke"],
+        correctAnswer: "Sasuke"
+    },
+    {
+        question: "Quels sont les deux techniques Que Naruto aime utiliser ?",
+        type: "multiple",
+        answers: ["Rasengan", "Chidori", "Kage Bunshin", "Rasen Shuriken"],
+        correctAnswer: ["Rasengan", "Kage Bunshin"]
+    },
+    {
+        question: "Le grand frère de Sasuke est Shisui",
+        type: "true/false",
+        answers: ["Vrai", "Faux"],
+        correctAnswer: "Faux"
+    },
+    {
+        question: "Qui est le fils de Hiruzen Sarutobi le troisième Hokage ?",
+        type: "single",
+        answers: ["Asuma", "Kakashi", "Iruka"],
+        correctAnswer: "Asuma"
+    },
+    {
+        question: "Qui font partie du trio légendaire ?",
+        type: "multiple",
+        answers: ["Jiraya", "Tsunade", "Orochimaru", "Hiruzen"],
+        correctAnswer: ["Jiraya", "Tsunade", "Orochimaru"]
+    },
+    {
+        question: "Qui est le premier Hokage ?",
+        type: "single",
+        answers: ["Hashirama", "Tobirama", "Hiruzen", "Minato"],
+        correctAnswer: "Hashirama"
     }
 ];
