@@ -1,5 +1,7 @@
 let currentQuestionIndex = 0;
 let score = 0;
+const selectedAnswers = [];  // Tableau pour stocker les réponses sélectionnées pour les questions à choix multiples
+
 const questions = [
     {
         question: "Qui est le premier sensei de Naruto ?",
@@ -14,7 +16,7 @@ const questions = [
         correctAnswer: ["Sasuke", "Sakura"]
     },
     {
-        question: "Naruto est le fisl du quatrième Hokage",
+        question: "Naruto est le fils du quatrième Hokage",
         type: "true/false", // Vrai/Faux
         answers: ["Vrai", "Faux"],
         correctAnswer: "Vrai"
@@ -32,7 +34,7 @@ const questions = [
         correctAnswer: "Sasuke"
     },
     {
-        question: "Quels sont les deux techniques Que Naruto aime utiliser ?",
+        question: "Quels sont les deux techniques que Naruto aime utiliser ?",
         type: "multiple",
         answers: ["Rasengan", "Chidori", "Kage Bunshin", "Rasen Shuriken"],
         correctAnswer: ["Rasengan", "Kage Bunshin"]
@@ -72,13 +74,15 @@ function displayQuestion() {
     document.getElementById("question-text").textContent = question.question;
     const answerContainer = document.getElementById("answer-container");
     answerContainer.innerHTML = "";  // Réinitialise les réponses
+    selectedAnswers.length = 0;  // Réinitialiser le tableau des réponses sélectionnées
 
+    // Créer les boutons de réponse en fonction du type de question
     if (question.type === "single") {
         question.answers.forEach(answer => {
             const btn = document.createElement("button");
             btn.textContent = answer;
             btn.classList.add("answer-btn");
-            btn.onclick = () => checkAnswer(answer);
+            btn.onclick = () => toggleSingleAnswer(answer, btn);
             answerContainer.appendChild(btn);
         });
     } else if (question.type === "multiple") {
@@ -86,7 +90,7 @@ function displayQuestion() {
             const btn = document.createElement("button");
             btn.textContent = answer;
             btn.classList.add("answer-btn");
-            btn.onclick = () => checkMultipleAnswer(answer);
+            btn.onclick = () => toggleMultipleAnswer(answer, btn);
             answerContainer.appendChild(btn);
         });
     } else if (question.type === "true/false") {
@@ -94,17 +98,62 @@ function displayQuestion() {
             const btn = document.createElement("button");
             btn.textContent = answer;
             btn.classList.add("answer-btn");
-            btn.onclick = () => checkAnswer(answer);
+            btn.onclick = () => toggleSingleAnswer(answer, btn);
             answerContainer.appendChild(btn);
         });
     }
+
+    // Ajoute un bouton de validation
+    const validateBtn = document.createElement("button");
+    validateBtn.textContent = "Valider";
+    validateBtn.classList.add("validate-btn");
+    validateBtn.onclick = checkAnswers;
+    answerContainer.appendChild(validateBtn);
 }
 
-function checkAnswer(selectedAnswer) {
+function toggleSingleAnswer(answer, btn) {
+    // Pour les réponses à choix unique, on n'autorise qu'une seule sélection
+    const selectedBtns = document.querySelectorAll(".answer-btn.selected");
+    selectedBtns.forEach(button => button.classList.remove("selected"));
+
+    btn.classList.add("selected");
+    selectedAnswers.length = 0;  // Réinitialise les réponses sélectionnées
+    selectedAnswers.push(answer);  // Ajoute la réponse sélectionnée
+}
+
+function toggleMultipleAnswer(answer, btn) {
+    // Permet de sélectionner et désélectionner les réponses multiples
+    if (selectedAnswers.includes(answer)) {
+        const index = selectedAnswers.indexOf(answer);
+        selectedAnswers.splice(index, 1);
+        btn.classList.remove("selected");
+    } else {
+        selectedAnswers.push(answer);
+        btn.classList.add("selected");
+    }
+}
+
+function checkAnswers() {
     const question = questions[currentQuestionIndex];
     const resultContainer = document.getElementById("result-container");
+    let isCorrect = false;
 
-    if (selectedAnswer === question.correctAnswer) {
+    if (question.type === "multiple") {
+        const correctAnswersCount = question.correctAnswer.length;
+        const selectedCorrectAnswers = selectedAnswers.filter(answer => question.correctAnswer.includes(answer));
+
+        // Vérifie si toutes les réponses sélectionnées sont correctes et si le nombre de réponses sélectionnées est correct
+        if (selectedCorrectAnswers.length === correctAnswersCount && selectedAnswers.length === correctAnswersCount) {
+            isCorrect = true;
+        }
+    } else {
+        // Vérifie les réponses pour les questions à choix unique ou vrai/faux
+        if (selectedAnswers[0] === question.correctAnswer) {
+            isCorrect = true;
+        }
+    }
+
+    if (isCorrect) {
         score++;
         resultContainer.textContent = "Correct!";
         resultContainer.classList.add("correct");
@@ -113,7 +162,8 @@ function checkAnswer(selectedAnswer) {
         resultContainer.classList.add("incorrect");
     }
 
-    document.getElementById("next-btn").style.display = "block";  // Affiche le bouton suivant
+    // Afficher le bouton suivant
+    document.getElementById("next-btn").style.display = "block";
 }
 
 function nextQuestion() {
@@ -126,3 +176,12 @@ function nextQuestion() {
         showFinalScore();
     }
 }
+
+function showFinalScore() {
+    document.getElementById("question-text").textContent = `Votre score final est ${score} sur ${questions.length}`;
+    document.getElementById("answer-container").innerHTML = "";
+    document.getElementById("next-btn").style.display = "none";
+}
+
+shuffleQuestions();
+displayQuestion();
