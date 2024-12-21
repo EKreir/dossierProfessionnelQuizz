@@ -66,3 +66,36 @@ const questions = [
 function shuffleQuestions() {
     questions.sort(() => Math.random() - 0.5);  // Mélange les questions de manière aléatoire
 }
+
+function displayQuestion() {
+    const question = questions[currentQuestionIndex];
+    document.getElementById("question-text").textContent = question.question;
+    const answerContainer = document.getElementById("answer-container");
+    answerContainer.innerHTML = "";  // Réinitialise les réponses
+
+    if (question.type === "single") {
+        question.answers.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.textContent = answer;
+            btn.classList.add("answer-btn");
+            btn.onclick = () => checkAnswer(answer);
+            answerContainer.appendChild(btn);
+        });
+    } else if (question.type === "multiple") {
+        question.answers.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.textContent = answer;
+            btn.classList.add("answer-btn");
+            btn.onclick = () => checkMultipleAnswer(answer);
+            answerContainer.appendChild(btn);
+        });
+    } else if (question.type === "true/false") {
+        question.answers.forEach(answer => {
+            const btn = document.createElement("button");
+            btn.textContent = answer;
+            btn.classList.add("answer-btn");
+            btn.onclick = () => checkAnswer(answer);
+            answerContainer.appendChild(btn);
+        });
+    }
+}
