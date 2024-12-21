@@ -75,3 +75,8 @@ h1 {
 #next-btn:hover {
     background-color: #45a049;
 }
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
